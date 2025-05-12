@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이미지 위치 경로 시각화</title>
+    <link rel="stylesheet" href="static/style.css" />
+  </head>
+  <body>
+    <div class="controls">
+      <button id="run-classification" class="button">이미지 분류 실행</button>
+      <button id="run-search" class="button">위치 분석 실행</button>
+      <button id="run-workflow" class="button">전체 워크플로우 실행</button>
+      <button id="load-results" class="button">저장된 결과 불러오기</button>
+      <button id="clear-map" class="button">지도 초기화</button>
+    </div>
+    <div id="summary" class="summary"></div>
+    <div id="map"></div>
+    <div id="log"></div>
+    <div class="loading" id="loading">분석 중입니다...</div>
+
+    <!-- Google Maps API 로드 전에 initMap 함수를 전역으로 정의 -->
+    <script>
+      // 전역 변수 선언
+      let map;
+      let markers = [];
+      let pathCoordinates = [];
+      let polyline = null;
+
+      // 지도 초기화 함수를 전역 스코프에 정의
+      function initMap() {
+        const center = { lat: 37.5665, lng: 126.978 }; // 서울
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: center,
+          zoom: 7,
+        });
+
+        // 나머지 초기화 코드는 scripts.js의 onMapReady 함수로 이동
+        if (typeof onMapReady === "function") {
+          onMapReady();
+        }
+      }
+    </script>
+
+    <!-- Google Maps API 스크립트 로드 (콜백으로 initMap 지정) -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeyBUI4qt7pqMHp_BKn3VqDR84LkwBOog&libraries=places&callback=initMap&loading=async"
+      async
+      defer
+    ></script>
+
+    <!-- 커스텀 스크립트 로드 -->
+    <script src="static/scripts.js"></script>
+  </body>
+</html>
